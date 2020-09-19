@@ -8,9 +8,11 @@ import Loading from '../Loading';
 export const Wrapper = () => {
   const { data } = useSWR(`https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&channelId=${process.env.REACT_APP_CHANNEL_ID}&maxResults=50&key=${process.env.REACT_APP_API_KEY}`, fetcher)
 
-  if (!data) return <Loading />
+  if (!data) return <Loading />;
 
   const { items } = data;
+
+  if (!items) return <Loading />;
 
   return (
     <section>
