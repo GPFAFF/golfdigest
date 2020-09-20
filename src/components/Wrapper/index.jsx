@@ -3,24 +3,18 @@ import useSWR from 'swr';
 import { fetcher } from '../hooks';
 
 import { Video } from '../Video';
+import { Error } from '../Error';
 import Loading from '../Loading';
 
 export const Wrapper = () => {
-  const { data } = useSWR(`https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&channelId=${process.env.REACT_APP_CHANNEL_ID}&maxResults=50&key=${process.env.REACT_APP_API_KEY}`, fetcher)
+  const { data, error } = useSWR(`https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&channelId=${process.env.REACT_APP_CHANNEL_ID}&maxResults=15&key=${process.env.REACT_APP_API_KEY}`, fetcher);
 
+  if (error) return <Error />;
   if (!data) return <Loading />;
-
-  const { items } = data;
-
-  if (!items) return <Loading />;
 
   return (
     <section>
-      <ul>
-        <li>
-        </li>
-      </ul>
-      {items.map(item => {
+      {data.items.map(item => {
         const { title, id, snippet } = item;
         const {
           thumbnails: {
@@ -39,7 +33,7 @@ export const Wrapper = () => {
             title={title}
           />
         )
-      })}
-    </section>
+    })}
+  </section>
   )
 }
