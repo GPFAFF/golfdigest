@@ -21,6 +21,11 @@ export const Video = ({ videoId, image }) => {
     description,
     title,
     tags,
+    thumbnails: {
+      medium: {
+        url,
+      }
+    }
   } = snippet;
 
   const link = description
@@ -39,12 +44,17 @@ export const Video = ({ videoId, image }) => {
   return (
     <div>
       <div className="details">
-        <iframe
-        className="video--frame"
-        src={URL}
-        title={title}
-        allowFullScreen
-        />
+        <div className="video-container">
+          <button className="thumbnail-link">
+            <img src={url} alt={title} className="video-thumbnail" />
+            <span>Video is loading ... hang tight!!</span>
+             <iframe className="video--frame"
+              src={URL}
+              title={title}
+              allowFullScreen
+             />
+          </button>
+        </div>
         <div className="content">
           <h2 className="title">{title}</h2>
           <p className="video--description">{parsedDescription}.</p>

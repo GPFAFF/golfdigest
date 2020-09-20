@@ -28,7 +28,11 @@ div[role="main"] {
 section > div {
   background-color: #eee;
   padding: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   border-radius: 4px;
   box-shadow: 0 1px 1px 3px black;
+}
+
+section > div:first-of-type {
+  margin-top: 60px;
 }
